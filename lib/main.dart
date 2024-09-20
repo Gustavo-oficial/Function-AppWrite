@@ -21,16 +21,8 @@ Future<dynamic> main(final context) async {
         collectionId: collectionId!
       );
 
-      dynamic items = [];
-
-      storesItems.documents.where((element) {
-        items.add(element.data);
-
-        return true;
-      }).toList();
-
       return context.res.json({
-        'items': items
+        'items': storesItems.documents
       });
     } on AppwriteException catch(e) {
       return context.res.json({
