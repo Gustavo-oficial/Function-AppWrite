@@ -19,8 +19,8 @@ Future<dynamic> main(final context) async {
         databaseId: databaseId,
         collectionId: collectionId
       );
-
-      print(storesItems);
+      
+      return storesItems;
     } on AppwriteException catch(e) {
         print(e);
     }
