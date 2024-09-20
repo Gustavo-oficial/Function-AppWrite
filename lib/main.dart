@@ -7,7 +7,7 @@ const String databaseId = String.fromEnvironment("DATABASE_ID");
 const String collectionId = String.fromEnvironment("COLLECTION_ID");
 
 Future<dynamic> main(final context) async {
-  final String projectId = context.env["PROJECT_ID"]; 
+  final String projectId = context.variables["PROJECT_ID"]; 
 
   final client = Client()
       .setEndpoint('https://cloud.appwrite.io/v1')
