@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dart_appwrite/dart_appwrite.dart';
+import 'package:dart_appwrite/models.dart';
 
 
 const String projectId = String.fromEnvironment("PROJECT_ID"); 
@@ -15,16 +16,24 @@ Future<dynamic> main(final context) async {
 
   if (context.req.path == "/storeItems") {
     try {
-      final storesItems = databases.listDocuments(
+      final DocumentList storesItems = await databases.listDocuments(
         databaseId: databaseId,
         collectionId: collectionId
       );
 
+      dynamic items = [];
+
+      storesItems.documents.forEach((element) {
+        items.add(element);
+      });
+
       return context.res.json({
-        'items': storesItems
+        'items': items
       });
     } on AppwriteException catch(e) {
-        print(e);
+      return context.res.json({
+        'error': e
+      });
     }
   }
 
