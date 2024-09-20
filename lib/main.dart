@@ -32,6 +32,7 @@ Future<dynamic> main(final context) async {
       });
     } on AppwriteException catch(e) {
       return context.res.json({
+        "project": projectId, 
         'error': e.code,
         "message": e.message
       });
