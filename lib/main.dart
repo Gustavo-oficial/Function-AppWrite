@@ -22,6 +22,8 @@ Future<dynamic> main(final context) async {
       );
 
       return context.res.json({
+        "database": databaseId,
+        "collection": collectionId,
         'items': storesItems.documents
       });
     } on AppwriteException catch(e) {
