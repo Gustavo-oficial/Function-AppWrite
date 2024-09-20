@@ -19,8 +19,10 @@ Future<dynamic> main(final context) async {
         databaseId: databaseId,
         collectionId: collectionId
       );
-      
-      return storesItems;
+
+      return context.res.json({
+        'items': storesItems
+      });
     } on AppwriteException catch(e) {
         print(e);
     }
@@ -28,7 +30,6 @@ Future<dynamic> main(final context) async {
 
   return context.res.json({
     'motto': 'Build like a team of hundreds_',
-    'learn': context.process.env.API_KEY,
     'connect': 'https://appwrite.io/discord',
     'getInspired': 'https://builtwith.appwrite.io',
   });
