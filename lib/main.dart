@@ -4,14 +4,15 @@ import 'package:dart_appwrite/dart_appwrite.dart';
 import 'package:dart_appwrite/models.dart';
 
 Future<dynamic> main(final context) async {
+  final String? endpoint = Platform.environment['ENDPOINT'];
   final String? projectId = Platform.environment['PROJECT_ID']; 
   final String? databaseId = Platform.environment['DATABASE_ID'];
-  final String? collectionId = Platform.environment['COLLECTION_ID'];
+  final String? storeItemColletionId = Platform.environment['STORE_ITEM_COLLECTION_ID'];
   final String? apiKey = Platform.environment['API_KEY'];
 
   // Configurando o cliente Appwrite
   final client = Client()
-      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setEndpoint(endpoint!)
       .setProject(projectId)
       .setKey(apiKey); 
 
@@ -22,17 +23,13 @@ Future<dynamic> main(final context) async {
       // Listar documentos da coleção
       DocumentList result = await databases.listDocuments(
         databaseId: databaseId!,
-        collectionId: collectionId!,
+        collectionId: storeItemColletionId!,
         queries: [],
       );
 
-      // Converter cada documento para Map para poder serializar
       List<Map<String, dynamic>> items = result.documents.map((doc) => doc.toMap()).toList();
 
       return context.res.json({
-        "result": result.toMap(), 
-        "database": databaseId,
-        "collection": collectionId,
         'items': items 
       });
     } on AppwriteException catch (e) {
