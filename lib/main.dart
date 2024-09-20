@@ -24,9 +24,11 @@ Future<dynamic> main(final context) async {
 
       dynamic items = [];
 
-      storesItems.documents.forEach((element) {
-        items.add(element);
-      });
+      storesItems.documents.where((element) {
+        items.add(element.data);
+
+        return true;
+      }).toList();
 
       return context.res.json({
         'items': items
@@ -34,7 +36,7 @@ Future<dynamic> main(final context) async {
     } on AppwriteException catch(e) {
       return context.res.json({
         "project": projectId, 
-        'error': e.code,
+        'code': e.code,
         "message": e.message
       });
     }
