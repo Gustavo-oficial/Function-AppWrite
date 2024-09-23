@@ -18,7 +18,7 @@ Future<dynamic> main(final context) async {
         databases: databases
       );
     case "/storeItemById":
-      final itemId = context.req.params['id'];
+      final itemId = context.req.query['id'];
 
       if (itemId == null || itemId.isEmpty) {
         return context.res.json({
