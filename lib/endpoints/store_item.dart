@@ -40,9 +40,11 @@ class StoreItem {
         collectionId: storeItemColletionId!,
         documentId: itemId
       );
+
+      Map<String, dynamic> item = result.data["status"] == true ? result.toMap() : {};
       
       return context.res.json({
-        'item': result.toMap()
+        'item': item
       });
     } on AppwriteException catch (e) {
       return context.res.json({
