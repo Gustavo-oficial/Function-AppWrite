@@ -16,7 +16,7 @@ class StoreItem {
       );
 
       List<Map<String, dynamic>> items = result.documents.map((doc) => doc.toMap()).toList();
-      items.map((item) => item['data']["status"] == true).toList();
+      items.where((item) => item['data']["status"] == true).toList();
 
       return context.res.json({
         'items': items 
