@@ -43,9 +43,7 @@ class StoreItem {
 
       Map<String, dynamic> item = result.data["status"] == true ? result.toMap() : {};
       
-      return context.res.json({
-        'item': item
-      });
+      return context.res.json(item);
     } on AppwriteException catch (e) {
       return context.res.json({
         'code': e.code,
