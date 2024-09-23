@@ -16,10 +16,10 @@ class StoreItem {
       );
 
       List<Map<String, dynamic>> items = result.documents.map((doc) => doc.toMap()).toList();
-      items.where((item) => item['data']["status"] == true).toList();
+      List<Map<String, dynamic>> activeItems = items.where((item) => item['data']?['status'] == true).toList();
 
       return context.res.json({
-        'items': items 
+        'items': activeItems 
       });
     } on AppwriteException catch (e) {
       return context.res.json({
