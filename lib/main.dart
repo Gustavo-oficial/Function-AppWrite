@@ -1,16 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:dart_appwrite/dart_appwrite.dart';
 import 'package:dart_appwrite/models.dart';
+import 'package:starter_template/env_config.dart';
 
 Future<dynamic> main(final context) async {
-  final String? endpoint = Platform.environment['ENDPOINT'];
-  final String? projectId = Platform.environment['PROJECT_ID']; 
-  final String? databaseId = Platform.environment['DATABASE_ID'];
-  final String? storeItemColletionId = Platform.environment['STORE_ITEM_COLLECTION_ID'];
-  final String? apiKey = Platform.environment['API_KEY'];
-
-  // Configurando o cliente Appwrite
   final client = Client()
       .setEndpoint(endpoint!)
       .setProject(projectId)
@@ -20,7 +13,6 @@ Future<dynamic> main(final context) async {
 
   if (context.req.path == "/storeItems") {
     try {
-      // Listar documentos da coleção
       DocumentList result = await databases.listDocuments(
         databaseId: databaseId!,
         collectionId: storeItemColletionId!,
@@ -34,6 +26,7 @@ Future<dynamic> main(final context) async {
       });
     } on AppwriteException catch (e) {
       return context.res.json({
+        "storeCollectionId": storeItemColletionId,
         "project": projectId, 
         'code': e.code,
         "message": e.message
